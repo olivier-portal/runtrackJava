@@ -1,4 +1,4 @@
-package src.Job00;
+package Jour01;
 
 public class Job00 {
 

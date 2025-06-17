@@ -1,5 +1,6 @@
 package Jour02;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -8,12 +9,14 @@ public class GestionVehicules {
     public static void main(String[] args) {
 
         Calendar cal = Calendar.getInstance();
-        cal.set(2024, Calendar.JULY, 9); // Mois commence à 0
+        cal.set(2024, Calendar.JULY, 9);
         Date dateAchatVoiture = cal.getTime();
+
+        cal.set(2018, Calendar.JUNE, 18);
+        Date dateAchatAvion = cal.getTime();
+
         Voiture v = new Voiture("Peugeot", dateAchatVoiture, 15560L, 1600, 5, 120, 18235.56);
 
-        cal.set(2018, Calendar.JUNE, 18); // Mois commence à 0
-        Date dateAchatAvion = cal.getTime();
         Avion a = new Avion("Airbus", dateAchatAvion, 25000000L, Avion.TypeMoteur.REACTION, 12000);
 
         v.affiche();
@@ -23,9 +26,9 @@ public class GestionVehicules {
 }
 
 class Vehicule {
-    private String marque;
-    private Date dateAchat;
-    private long prix;
+    private final String marque;
+    private final Date dateAchat;
+    private final long prix;
     private double prixCourant;
 
     public Vehicule(String marque,Date dateAchat, long prix ) {
@@ -47,18 +50,19 @@ class Vehicule {
     }
 
     public void affiche() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         System.out.println("Marque: " + marque);
-        System.out.println("DateAchat: " + dateAchat);
+        System.out.println("Date d'achat: " + sdf.format(dateAchat));
         System.out.println("Prix: " + prix);
     }
 }
 
 class Voiture extends Vehicule {
 
-    private int cylindree;
-    private int nombrePortes;
-    private int puissance;
-    private double kilometrage;
+    private final int cylindree;
+    private final int nombrePortes;
+    private final int puissance;
+    private final double kilometrage;
 
     public Voiture(String marque, Date dateAchat, long prix, int cylindree ,  int nombrePortes , int puissance , double kilometrage ) {
         super(marque, dateAchat, prix);
@@ -85,8 +89,8 @@ class Avion extends Vehicule {
         REACTION
     }
 
-    private TypeMoteur typeMoteur;
-    private int heureVole;
+    private final TypeMoteur typeMoteur;
+    private final int heureVole;
 
     public Avion(String marque, Date dateAchat, long prix, TypeMoteur typeMoteur, int heureVole) {
         super(marque, dateAchat, prix);

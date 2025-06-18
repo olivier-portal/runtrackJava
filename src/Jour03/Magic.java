@@ -21,23 +21,39 @@ public class Magic {
         Spell spell4 = new Spell("Leviato", "Make fly objects", 18);
         Spell spell5 = new Spell("Bouhhh", "Scare kids", 2);
 
-        map1.show();
-        map2.show();
-        map3.show();
-        map4.show();
-        map5.show();
+//        map1.show();
+//        map2.show();
+//        map3.show();
+//        map4.show();
+//        map5.show();
+//
+//        mag1.show();
+//        mag2.show();
+//        mag3.show();
+//        mag4.show();
+//        mag5.show();
+//
+//        spell1.show();
+//        spell2.show();
+//        spell3.show();
+//        spell4.show();
+//        spell5.show();
 
-        mag1.show();
-        mag2.show();
-        mag3.show();
-        mag4.show();
-        mag5.show();
+        Game game = new Game();
 
-        spell1.show();
-        spell2.show();
-        spell3.show();
-        spell4.show();
-        spell5.show();
+        game.piocher(map1);
+        game.piocher(mag1);
+        game.piocher(spell1);
+        game.piocher(spell2);
+
+        System.out.println(">>> Affichage du jeu :");
+        game.showCard();
+
+        System.out.println(">>> Jouer une carte :");
+        game.play();
+
+        System.out.println(">>> Après avoir joué :");
+        game.showCard();
     }
 }
 
@@ -111,5 +127,50 @@ class Spell extends Card{
         System.out.println("Explaination : " + spellExplaination);
         super.show();
         System.out.println("-------------------" );
+    }
+}
+
+class Game {
+    private Card[] cards = new Card[10];
+    private int nbrCards = 0;
+
+    public void piocher(Card card) {
+        if (nbrCards < cards.length) {
+            cards[nbrCards++] = card;
+            nbrCards++;
+        } else  {
+            System.out.println("Le game est plein");
+        }
+    }
+
+    public void play() {
+        if (nbrCards == 0) {
+            System.out.println("Aucune carte à jouer");
+            return;
+        }
+
+        System.out.println("Carte jouée :");
+        cards[0].show();
+        cards[0] = null;
+
+        // Décaler les cartes
+        for (int i = 1; i < nbrCards; i++) {
+            cards[i - 1] = cards[i];
+        }
+        cards[nbrCards - 1] = null;
+        nbrCards--;
+    }
+
+    public void showCard() {
+        if (nbrCards == 0) {
+            System.out.println("Le game est vide.");
+            return;
+        }
+
+        for (int i = 0; i < nbrCards; i++) {
+            if (cards[i] != null) {
+                cards[i].show();
+            }
+        }
     }
 }
